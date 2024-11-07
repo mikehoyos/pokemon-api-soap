@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="3.0" xmlns="https://jakarta.ee/xml/ns/jaxb">
+  <!--
+
+Este archivo ha sido generado por Eclipse Implementation of JAXB v3.0.2 
+Visite https://eclipse-ee4j.github.io/jaxb-ri 
+Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
+Generado el: 2024.11.05 a las 11:16:21 PM GMT-06:00 
+
+  -->
+  <bindings scd="x-schema::tns" xmlns:tns="http://soap.pokemon.com/">
+    <schemaBindings map="false">
+      <package name="com.pokemon.soap"/>
+    </schemaBindings>
+    <bindings scd="tns:AbilityResponse">
+      <class ref="com.pokemon.soap.AbilityResponse"/>
+    </bindings>
+    <bindings scd="tns:HeldItemsResponse">
+      <class ref="com.pokemon.soap.HeldItemsResponse"/>
+    </bindings>
+    <bindings scd="tns:AbilityRequest">
+      <class ref="com.pokemon.soap.AbilityRequest"/>
+    </bindings>
+    <bindings scd="tns:BaseExperienceRequest">
+      <class ref="com.pokemon.soap.BaseExperienceRequest"/>
+    </bindings>
+    <bindings scd="tns:BaseExperienceResponse">
+      <class ref="com.pokemon.soap.BaseExperienceResponse"/>
+    </bindings>
+    <bindings scd="tns:HeldItemsRequest">
+      <class ref="com.pokemon.soap.HeldItemsRequest"/>
+    </bindings>
+    <bindings scd="tns:IdRequest">
+      <class ref="com.pokemon.soap.IdRequest"/>
+    </bindings>
+    <bindings scd="tns:IdResponse">
+      <class ref="com.pokemon.soap.IdResponse"/>
+    </bindings>
+    <bindings scd="tns:NameRequest">
+      <class ref="com.pokemon.soap.NameRequest"/>
+    </bindings>
+    <bindings scd="tns:NameResponse">
+      <class ref="com.pokemon.soap.NameResponse"/>
+    </bindings>
+    <bindings scd="tns:LocalAreaEncountersRequest">
+      <class ref="com.pokemon.soap.LocalAreaEncountersRequest"/>
+    </bindings>
+    <bindings scd="tns:LocalAreaEncountersResponse">
+      <class ref="com.pokemon.soap.LocalAreaEncountersResponse"/>
+    </bindings>
+  </bindings>
+</bindings>
+

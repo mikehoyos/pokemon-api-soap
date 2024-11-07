@@ -12,9 +12,18 @@ import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
+/**
+ * Clase oara la configuración el web service.
+ */
 @EnableWs
 @Configuration
 public class WsConfig extends WsConfigurerAdapter {
+  /**
+   * Método para configuración del bean.
+   *
+   * @param context request del método.
+   * @return ServletRegistrationBean.
+   */
   @Bean
   public ServletRegistrationBean webServiceServlet(ApplicationContext context) {
     MessageDispatcherServlet servlet = new MessageDispatcherServlet();
@@ -23,7 +32,13 @@ public class WsConfig extends WsConfigurerAdapter {
     return new ServletRegistrationBean(servlet, "/ws/*");
   }
 
-  @Bean(name="pokemon")
+  /**
+   * Método para definicion del wsdl.
+   *
+   * @param xsdSchema request del método.
+   * @return DefaultWsdl11Definition.
+   */
+  @Bean(name = "pokemon")
   public DefaultWsdl11Definition definition(XsdSchema xsdSchema) {
     DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
     definition.setPortTypeName("PokemonPort");

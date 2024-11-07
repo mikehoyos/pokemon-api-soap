@@ -1,13 +1,11 @@
 package com.pokemon.soap;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class PokemonApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import org.junit.runner.RunWith;
+@RunWith(Cucumber.class)
+@CucumberOptions(
+		features = "."
+)
+public class PokemonApplicationTests {
 }
