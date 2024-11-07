@@ -5,7 +5,8 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = "."
+		features = "src/test/resources/features",
+		glue = {"stepDefinition"}
 )
 public class PokemonApplicationTests {
 }
