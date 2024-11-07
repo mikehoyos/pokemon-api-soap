@@ -14,6 +14,8 @@ import com.pokemon.soap.NameRequest;
 import com.pokemon.soap.NameResponse;
 import com.pokemon.soap.entity.AccesUsr;
 import com.pokemon.soap.service.PokemonService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,12 +29,12 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Arrays;
 
 @Slf4j
 @AllArgsConstructor
 @Endpoint
+@Tag(name="SOAP service pokemon")
 public class PokemonEndpoint {
   private PokemonService pokemonService;
   private HttpServletRequest httpServletRequest;
@@ -44,68 +46,55 @@ public class PokemonEndpoint {
 
   private static final String NAMESPACE_URI = "http://soap.pokemon.com/";
 
+  @Operation(summary = "Calls the SOAP operation getBaseExperience")
   @PayloadRoot(namespace = NAMESPACE_URI, localPart = "BaseExperienceRequest")
   @ResponsePayload
-  public BaseExperienceResponse getBaseExperience(
-      @RequestPayload BaseExperienceRequest request) {
+  public BaseExperienceResponse getBaseExperience(@RequestPayload BaseExperienceRequest request) {
 
     var start = Instant.now();
+    String ip = (this.httpServletRequest.getRemoteAddr() != null) ? this.httpServletRequest.getRemoteAddr() : "";
     BaseExperienceResponse response = new BaseExperienceResponse();
     JSONObject jsonObject = pokemonService.getApiPokemon(request.getName());
     response.setBaseExperience(jsonObject.get("base_experience").toString());
-    AccesUsr accesUsr = new AccesUsr();
-    accesUsr.setIp(this.httpServletRequest.getRemoteAddr());
-    accesUsr.setResponse(response.toString());
-    accesUsr.setCalledMethod("getBaseExperience");
-    accesUsr.setTimeOn(LocalDate.now());
-    accesUsr.setRequest(request.getName());
-    accesUsr.setTime(Duration.between(start, Instant.now()).toMillis());
+    AccesUsr accesUsr = pokemonService.paramToEntity("base_experience", Duration.between(start, Instant.now()).toMillis(), request.getName(),
+        response.toString(), ip);
     pokemonService.saveDatsUsr(accesUsr);
     return response;
   }
 
+  @Operation(summary = "Calls the SOAP operation getId")
   @PayloadRoot(namespace = NAMESPACE_URI, localPart = "IdRequest")
   @ResponsePayload
-  public IdResponse getId(
-      @RequestPayload IdRequest request) {
+  public IdResponse getId(@RequestPayload IdRequest request) {
 
     var start = Instant.now();
     IdResponse response = new IdResponse();
     JSONObject jsonObject = pokemonService.getApiPokemon(request.getNombre());
     response.setId(jsonObject.get("id").toString());
-    AccesUsr accesUsr = new AccesUsr();
-    accesUsr.setIp(this.httpServletRequest.getRemoteAddr());
-    accesUsr.setResponse(response.toString());
-    accesUsr.setCalledMethod("getId");
-    accesUsr.setTimeOn(LocalDate.now());
-    accesUsr.setRequest(request.getNombre());
-    accesUsr.setTime(Duration.between(start, Instant.now()).toMillis());
+    AccesUsr accesUsr = pokemonService.paramToEntity("id", Duration.between(start, Instant.now()).toMillis(), request.getNombre(),
+        response.toString(), this.httpServletRequest.getRemoteAddr());
     pokemonService.saveDatsUsr(accesUsr);
     return response;
   }
 
   @PayloadRoot(namespace = NAMESPACE_URI, localPart = "NameRequest")
   @ResponsePayload
-  public NameResponse getName(
-      @RequestPayload NameRequest request) {
+  @Operation(summary = "Calls the SOAP getName")
+  public NameResponse getName(@RequestPayload NameRequest request) {
 
     var start = Instant.now();
     NameResponse response = new NameResponse();
     JSONObject jsonObject = pokemonService.getApiPokemon(request.getNombre());
     response.setName(jsonObject.get("name").toString());
-    AccesUsr accesUsr = new AccesUsr();
-    accesUsr.setIp(this.httpServletRequest.getRemoteAddr());
-    accesUsr.setResponse(response.toString());
-    accesUsr.setCalledMethod("getName");
-    accesUsr.setTimeOn(LocalDate.now());
-    accesUsr.setRequest(request.getNombre());
-    accesUsr.setTime(Duration.between(start, Instant.now()).toMillis());
+    AccesUsr accesUsr = pokemonService.paramToEntity("getName", Duration.between(start, Instant.now()).toMillis(), request.getNombre(),
+        response.toString(), this.httpServletRequest.getRemoteAddr());
     pokemonService.saveDatsUsr(accesUsr);
     return response;
   }
 
   @PayloadRoot(namespace = NAMESPACE_URI, localPart = "LocalAreaEncountersRequest")
   @ResponsePayload
+  @Operation(summary = "Calls the SOAP getLocalAreaEncounters")
   public LocalAreaEncountersResponse getLocalAreaEncounters(
       @RequestPayload LocalAreaEncountersRequest request) {
 
@@ -113,18 +102,15 @@ public class PokemonEndpoint {
     LocalAreaEncountersResponse response = new LocalAreaEncountersResponse();
     JSONObject jsonObject = pokemonService.getApiPokemon(request.getName());
     response.setLocalAreaEncounters(jsonObject.get("location_area_encounters").toString());
-    AccesUsr accesUsr = new AccesUsr();
-    accesUsr.setIp(this.httpServletRequest.getRemoteAddr());
-    accesUsr.setResponse(response.toString());
-    accesUsr.setCalledMethod("getLocalAreaEncounters");
-    accesUsr.setTimeOn(LocalDate.now());
-    accesUsr.setRequest(request.getName());
-    accesUsr.setTime(Duration.between(start, Instant.now()).toMillis());
+    AccesUsr accesUsr = pokemonService.paramToEntity("getName", Duration.between(start, Instant.now()).toMillis(), request.getName(),
+        response.toString(), this.httpServletRequest.getRemoteAddr());
     pokemonService.saveDatsUsr(accesUsr);
     return response;
   }
+
   @PayloadRoot(namespace = NAMESPACE_URI, localPart = "AbilityRequest")
   @ResponsePayload
+  @Operation(summary = "Calls the SOAP getAbility")
   public AbilityResponse getAbility(@RequestPayload AbilityRequest request) {
     AbilityResponse abilityResponse = new AbilityResponse();
 
@@ -145,12 +131,8 @@ public class PokemonEndpoint {
       abilityResponse.setAbilitys(abilitys);
 
     });
-    AccesUsr accesUsr = new AccesUsr();
-    accesUsr.setIp(this.httpServletRequest.getRemoteAddr());
-    accesUsr.setResponse(abilityResponse.toString());
-    accesUsr.setCalledMethod("getAbility");
-    accesUsr.setTimeOn(LocalDate.now());
-    accesUsr.setTime(Duration.between(start, Instant.now()).toMillis());
+    AccesUsr accesUsr = pokemonService.paramToEntity("getAbility", Duration.between(start, Instant.now()).toMillis() ,request.getBaseExperience(),
+        abilityResponse.toString(), this.httpServletRequest.getRemoteAddr());
     pokemonService.saveDatsUsr(accesUsr);
     accesUsr.setRequest(request.getBaseExperience());
     return abilityResponse;
@@ -158,9 +140,11 @@ public class PokemonEndpoint {
 
   @PayloadRoot(namespace = NAMESPACE_URI, localPart = "HeldItemsRequest")
   @ResponsePayload
+  @Operation(summary = "Calls the SOAP getHeldItems")
   public HeldItemsResponse getHeldItems(@RequestPayload HeldItemsRequest request) {
     HeldItemsResponse heldItemsResponse = new HeldItemsResponse();
     HeldItemsResponse.VersionDetails versionDetails = new HeldItemsResponse.VersionDetails();
+
     var start = Instant.now();
 
     JSONObject jsonObject = pokemonService.getApiPokemon(request.getNombre());
@@ -187,13 +171,8 @@ public class PokemonEndpoint {
 
     });
 
-    AccesUsr accesUsr = new AccesUsr();
-    accesUsr.setIp(this.httpServletRequest.getRemoteAddr());
-    accesUsr.setResponse(heldItemsResponse.toString());
-    accesUsr.setCalledMethod("HeldItemsRequest");
-    accesUsr.setTimeOn(LocalDate.now());
-    accesUsr.setRequest(request.getNombre());
-    accesUsr.setTime(Duration.between(start, Instant.now()).toMillis());
+    AccesUsr accesUsr = pokemonService.paramToEntity("getHeldItems", Duration.between(start, Instant.now()).toMillis(), request.getNombre(),
+        heldItemsResponse.toString(), this.httpServletRequest.getRemoteAddr());
     pokemonService.saveDatsUsr(accesUsr);
     return heldItemsResponse;
   }
