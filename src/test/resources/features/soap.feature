@@ -1,5 +1,3 @@
-package com.pokemon.soap
-
 Feature: Validación de servicio SOAP
 
   Scenario: Consultar información de un pokemon
