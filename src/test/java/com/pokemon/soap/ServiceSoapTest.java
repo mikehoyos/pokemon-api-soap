@@ -27,7 +27,7 @@ class ServiceSoapTest {
 
   @InjectMocks
   private PokemonEndpoint pokemonEndpoint;
-/*
+
   @Test
   @Order(1)
   @DisplayName("Prueba unitaria del método Base Experience")
@@ -110,6 +110,6 @@ class ServiceSoapTest {
     when(pokemonService.getApiPokemon("pikachu")).thenReturn(jsonObject);
     var response = when(pokemonService.paramToEntity("2",2L,"222","re","121222")).thenReturn(accesUsr);
     Assertions.assertNotNull(response);
-  }*/
+  }
 }
 
